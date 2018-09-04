@@ -3,7 +3,7 @@
 需求分析：
     获取职位名称等。。。。
 入口：
-    http://sou.zhaopin.com/
+    http://sou.*.com/
     //div[@id='search_right_demo']/div/div/a/@href   获取职位列表url
     //td[@class='zwmc']/div/a[1]      获取详细职位列表url
     //a[@class='next-page']           下一页
@@ -17,10 +17,10 @@
 # import requests
 # from lxml import etree
 # headers={
-# 'Referer': 'http://sou.zhaopin.com/',
+# 'Referer': 'http://sou.#.com/',
 # 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3371.0 Safari/537.36'
 # }
-# requestsURL='http://sou.zhaopin.com/'
+# requestsURL='http://sou.#.com/'
 # zhlian=requests.get(requestsURL,headers=headers)
 # html=etree.HTML(zhlian.text)
 # print(html)
@@ -86,9 +86,9 @@ def save_data(data):
         file.write(data)
     pass
 if __name__=='__main__':
-    url="http://sou.zhaopin.com/"
+    url="http://sou.#.com/"
     headers={
-    'Referer': 'http://sou.zhaopin.com/',
+    'Referer': 'http://sou.#.com/',
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3371.0 Safari/537.36'
     }
     job_cat_list=get_job_cat_list(url,headers)
