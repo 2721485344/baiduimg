@@ -2,9 +2,9 @@
 """
 需求：输入关键字即可获取对应的百度图片
 分析：找到获取图片的Url(战斗机)
-      http://img2.imgtn.bdimg.com/it/u=86738536,1961393008&fm=27&gp=0.jpg
+      http://i.imgtn.bdimg.com/it/u=86738536,1961393008&fm=27&gp=0.jpg
       有鼠标滚轮事件
-      https://image.baidu.com/search/acjson?
+      https://i.baidu.com/search/acjson?
       tn=resultjson_com&ipn=rj&ct=201326592
       &is=&fp=result&queryWord=战斗机图片
       &cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=-1
@@ -25,7 +25,7 @@ headers={
 'Host':'tupian.baidu.com',
 'user-agent':'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59'
 }
-url='https://image.baidu.com/search/acjson?' \
+url='https://i.baidu.com/search/acjson?' \
     'tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&' \
     'queryWord={0}&cl=2&lm=-1&ie=utf-8&oe=utf-8&' \
     'adpicid=&st=-1&z=&ic=0&word={0}&s=&se=&tab=&' \
@@ -37,8 +37,8 @@ gsm=str(hex(pn))[-2:]
 times=int(time.time()*1000)
 page=1
 proxies = {
-                "http": "http://110.190.77.104:8080",
-                "https":"https://119.28.152.208:80",
+                "http": "http://*.*.*.*:8080",
+                "https":"https://*.*.*.*:80",
             }
 while True:
     imgJson=requests.get(url.format(word,pn,gsm,times),proxies=proxies,headers=headers).content.decode("utf-8")
@@ -56,8 +56,8 @@ while True:
             headers['Host']='ss2.bdstatic.com'
             headers['user-agent'] = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0'
             proxies = {
-                "http": "http://110.190.77.104:8080",
-                "https":"https://119.28.152.208:80",
+                "http": "http://*.*.*.*:8080",
+                "https":"https://*.*.*.*:80",
             }
             img=requests.get(imgUrl,headers=headers,proxies=proxies,stream=True).raw.read()#获取每张图片的套接字
             #保存图片
