@@ -1,10 +1,10 @@
 #_*_coding:utf-8_*_
 """
   需求：爬取所有qq音乐
-  入口：获取分类歌单 https://y.qq.com/portal/playlist.html
-         获取分类歌单列表 https://y.qq.com/n/yqq/playsquare/2054035442.html#stat=y_new.playlist.pic_click
+  入口：获取分类歌单 https://y.p.com/portal/playlist.html
+         获取分类歌单列表 https://y.p.com/n/yqq/playsquare/2054035442.html#stat=y_new.playlist.pic_click
          获取每首歌曲详情
-         http://dl.stream.qqmusic.qq.com/C4000037HlEP0subhS.m4a?vkey=9ADBCF5B41C3C81F2B626C7C6D5E85CE5459783FBF33EE885D247B0DBB9CF3DCAE86E53C9A7EB89B91B5E4E35857F87CDE391E5993C87A5D&guid=2438110866&uin=0&fromtag=66
+         http://dl.stream.pmusic.p.com/C4000037HlEP0subhS.m4a?vkey=9ADBCF5B41C3C81F2B626C7C6D5E85CE5459783FBF33EE885D247B0DBB9CF3DCAE86E53C9A7EB89B91B5E4E35857F87CDE391E5993C87A5D&guid=2438110866&uin=0&fromtag=66
   代码分析：xpath
 """
 import  requests
@@ -27,10 +27,10 @@ def get_classification_list(url,headers):
     return mulislist
 if __name__=="__main__":
     heads = {
-        'referer':'https://y.qq.com/portal/playlist.html',
+        'referer':'https://y.p.com/portal/playlist.html',
         'user-agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3371.0 Safari/537.36'
     }
-    url='https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg?picmid=1&rnd=0.34692207151847465&g_tk=5381&jsonpCallback=getPlaylist&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0&categoryId=10000000&sortId=5&sin={0}&ein={1}'
+    url='https://c.py.p.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg?picmid=1&rnd=0.34692207151847465&g_tk=5381&jsonpCallback=getPlaylist&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0&categoryId=10000000&sortId=5&sin={0}&ein={1}'
     sin=0
     ein=29
     page=1 #页码数
@@ -41,8 +41,8 @@ if __name__=="__main__":
         for list in dissidList['data']['list']:
             dissid=list['dissid'] #获取歌单id
             dissname=list['dissname']#获取歌单名称
-            songmidurl='https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg?type=1&json=1&utf8=1&onlysong=0&disstid={0}&format=jsonp&g_tk=5381&jsonpCallback=playlistinfoCallback&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0'
-            heads['referer']='https://y.qq.com/n/yqq/playsquare/2054035442.html'
+            songmidurl='https://p.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg?type=1&json=1&utf8=1&onlysong=0&disstid={0}&format=jsonp&g_tk=5381&jsonpCallback=playlistinfoCallback&loginUin=0&hostUin=0&format=jsonp&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0'
+            heads['referer']='https://p.pq.com/n/yqq/playsquare/2054035442.html'
             html = requests.get(songmidurl.format(dissid), headers=heads).text
             song_dic=json.loads(html.strip('playlistinfoCallback()'))
             k=1# 歌曲
@@ -50,7 +50,7 @@ if __name__=="__main__":
                 songmid=songmids['songmid']#获取songmid
                 songname=songmids['songname']#获取songmid
                 filename='C400{0}.m4a'.format(songmid)
-                vkeyurl='https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg?g_tk=5381&' \
+                vkeyurl='https://c.pq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg?g_tk=5381&' \
                         'jsonpCallback = MusicJsonCallback' \
                         '&loginUin=0&hostUin=0&format=json&inCharset=utf8' \
                         '&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0' \
