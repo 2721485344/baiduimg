@@ -57,12 +57,12 @@ if __name__=="__main__":
                         '&cid=205361747&callback=MusicJsonCallback' \
                         '&uin=0&songmid={0}&' \
                         'filename={1}&guid=1093240106'
-                heads['referer'] = 'https://y.qq.com/portal/playlist.html'
+                heads['referer'] = 'https://y.p.com/portal/playlist.html'
                 vkhtml = requests.get(vkeyurl.format(songmid,filename), headers=heads).text
                 vkdict=json.loads(vkhtml.strip('MusicJsonCallback()'))
                 vkey=vkdict['data']['items'][0]['vkey'] #提取vkey
                 #通过vkey下载音乐
-                musicurl='http://dl.stream.qqmusic.qq.com/C400{0}.m4a?vkey={1}&guid=1093240106&uin=0&fromtag=66'
+                musicurl='http://dl.stream.p.pp.com/C400{0}.m4a?vkey={1}&guid=1093240106&uin=0&fromtag=66'
                 heads['Host']='dl.stream.qqmusic.qq.com'
                 del heads['referer']
                 musicurhtml=requests.get(musicurl.format(songmid,vkey),headers=heads,stream=True)
